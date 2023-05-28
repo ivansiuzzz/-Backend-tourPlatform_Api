@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
 const fs = require("fs")
+const morgan = require("morgan")
 
+//middleware 
+app.use(morgan('dev'))
 app.use(express.json())
 app.use((req, res, next)=> {
     console.log("Hello from the middleware");
@@ -62,9 +65,12 @@ const getTour =  (req, res)=> {
         }
     })
 }
+const tourRouter = express.Router();
 
-app.route('/api/v1/tours').get(getAllTours).post(createTour)
-app.route('/api/v1/tours/:id').get(getTour)
+tourRouter.route('/').get(getAllTours).post(createTour)
+tourRouter.route('/:id').get(getTour)
+
+app.use('/api/v1/tours', tourRouter)
 
 app.get('/', function (req, res) {
   res.status(200).json({
