@@ -3,7 +3,10 @@ const app = express()
 const fs = require("fs")
 
 app.use(express.json())
-
+app.use((req, res, next)=> {
+    console.log("Hello from the middleware");
+    next();
+})
 const tours = JSON.parse(
     fs.readFileSync('./data/tours-simple.json')
 )
