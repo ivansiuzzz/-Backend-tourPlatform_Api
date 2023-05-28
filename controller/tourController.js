@@ -11,7 +11,16 @@ exports.checkId = (req, res,next, val)=> {
             status: 'fail',
             message: "Invalid Id"
         })
-        
+    }
+    next()
+} 
+
+exports.checkBody = (req, res,next)=> {
+    if(!req.body.name || !req.body.price){
+        return res.status(400).json({
+            status: 'fail',
+            message: "Invalid"
+        })
     }
     next()
 } 
@@ -31,8 +40,8 @@ exports.createTour =  (req, res)=> {
     const newTour = Object.assign({id: newId}, req.body)
 
     tours.push(newTour)
-    fs.writeFile(`./data/tours-simple.json`, JSON.stringify(tours), err => {
-        res.status(201).JSON.stringify({
+    fs.writeFile(`${__dirname}/../data/tours-simple.json`, JSON.stringify(tours), err => {
+        res.status(201).json({
             status: "success",
             data: {
                 tour: newTour
