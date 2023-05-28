@@ -34,25 +34,19 @@ app.get('/', function (req, res) {
 })
 
 
-const tourScheme = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'A tour must have a name'],
-    unique: true
-  },
-  rating: {
-    type: Number,
-    default: 4
-  },
-  price: {
-    type: Number,
-    required: [true, 'A tour must have a price']
-  }
-})
 
-const Tour = mongoose.model('Tour', tourScheme)
+
 
 const port = process.env.PORT
 app.listen(port, ()=> {
     console.log(`App running on port ${port}`);
 })
+
+
+// const testTour = new Tour({
+//   name: 'the forest hiker',
+//   rating: 4.7,
+//   price: 100
+// })
+
+// testTour.save().then(doc=> console.log(doc)).catch(err => console.log(err))
