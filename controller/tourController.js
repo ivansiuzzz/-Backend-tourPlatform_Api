@@ -2,10 +2,6 @@ const fs = require("fs");
 const Tour = require("../models/tourModel");
 
 
-const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/../data/tours-simple.json`)
-)
-
 
 exports.checkBody = (req, res,next)=> {
     if(!req.body.name || !req.body.price){
@@ -18,7 +14,9 @@ exports.checkBody = (req, res,next)=> {
 } 
 
 exports.getAllTours = async (req, res)=> {
-    const tours = await Tour.find()
+    console.log(req.query);
+
+    const tours = await Tour.find({...req.query})
 
     try{
     res.status(200).json({
