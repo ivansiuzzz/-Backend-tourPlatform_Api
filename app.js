@@ -3,6 +3,7 @@ const app = express()
 const morgan = require("morgan")
 const dotenv = require("dotenv")
 const tourRouter = require('./routes/tourRoutes')
+const userRouter = require('./routes/userRoutes')
 const mongoose = require('mongoose')
 dotenv.config({path: './config.env'})
 
@@ -25,14 +26,13 @@ app.use((req, res, next)=> {
 })
 
 app.use('/api/v1/tours', tourRouter)
-
+app.use('/api/v1/signup', userRouter)
 app.get('/', function (req, res) {
   res.status(200).json({
     message: 'hello world',
     app: "Natours"
   })
 })
-
 
 const port = process.env.PORT
 app.listen(port, ()=> {
