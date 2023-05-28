@@ -3,8 +3,19 @@ const app = express()
 const morgan = require("morgan")
 const dotenv = require("dotenv")
 const tourRouter = require('./routes/tourRoutes')
-
+const mongoose = require('mongoose')
 dotenv.config({path: './config.env'})
+
+mongoose.connect(process.env.DATABASE,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+).then(()=> console.log("DB connection successful")).catch((err)=> {
+  console.log(err);
+});
+
+
 //middleware 
 app.use(morgan('dev'))
 app.use(express.json())
@@ -21,6 +32,8 @@ app.get('/', function (req, res) {
     app: "Natours"
   })
 })
+
+
 
 
 const port = process.env.PORT
