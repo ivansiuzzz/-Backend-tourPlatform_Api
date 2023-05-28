@@ -26,7 +26,7 @@ app.use((req, res, next)=> {
 })
 
 app.use('/api/v1/tours', tourRouter)
-app.use('/api/v1/signup', userRouter)
+app.use('/api/v1/user', userRouter)
 app.get('/', function (req, res) {
   res.status(200).json({
     message: 'hello world',
